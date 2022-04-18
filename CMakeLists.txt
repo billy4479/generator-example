@@ -7,15 +7,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_custom_command(
-    OUTPUT src/Generated.hpp
-    COMMAND ${PROJECT_SOURCE_DIR}/generator.sh ${PROJECT_SOURCE_DIR}/Resources/data.txt > ${PROJECT_SOURCE_DIR}/src/Generated.hpp
+    OUTPUT Generated.hpp
+    COMMAND ${PROJECT_SOURCE_DIR}/generator.sh 
+            ${PROJECT_SOURCE_DIR}/Resources/data.txt 
+            > Generated.hpp
     DEPENDS Resources/data.txt
-    DEPENDS ${PROJECT_SOURCE_DIR}/generator.sh
+    DEPENDS generator.sh
 )
 
-file(GLOB_RECURSE SRC src/*.cpp src/*.hpp)
-add_executable(${PROJECT_NAME} ${SRC})
+add_executable(${PROJECT_NAME} src/main.cpp)
 
-add_custom_target(Generated DEPENDS src/Generated.hpp)
+add_custom_target(Generated DEPENDS Generated.hpp)
 add_dependencies(${PROJECT_NAME} Generated)
-
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_BINARY_DIR})

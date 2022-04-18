@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Generated.hpp"
+#include <Generated.hpp>
 
 int main() {
   std::cout << data << std::endl;
