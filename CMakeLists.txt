@@ -8,15 +8,19 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_custom_command(
     OUTPUT Generated.hpp
-    COMMAND ${PROJECT_SOURCE_DIR}/generator.sh 
-            ${PROJECT_SOURCE_DIR}/Resources/data.txt 
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/generator.sh 
+            ${CMAKE_CURRENT_SOURCE_DIR}/Resources/data.txt 
             > Generated.hpp
     DEPENDS Resources/data.txt
     DEPENDS generator.sh
 )
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp Generated.hpp)
 
-add_custom_target(Generated DEPENDS Generated.hpp)
-add_dependencies(${PROJECT_NAME} Generated)
+# These are optional: 
+#     use them only if you want to run the generator as a different target
+
+# add_custom_target(Generated DEPENDS Generated.hpp)
+# add_dependencies(${PROJECT_NAME} Generated)
+
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_BINARY_DIR})
