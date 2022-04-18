@@ -1,5 +1,11 @@
 # Generator Example
 
+**SOLVED!**
+
+Check the `fix` branch for the solution.
+
+---
+
 ```sh
 cmake -S . -B build -G Ninja
 cmake --build build
